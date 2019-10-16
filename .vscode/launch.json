@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodeLens (Launch) - StringCheck",
+      "request": "launch",
+      "mainClass": "string_manipulation.StringCheck",
+      "projectName": "Java_Training_8121b114"
+    },
+    {
+      "type": "java",
       "name": "CodeLens (Launch) - FinalTest",
       "request": "launch",
       "mainClass": "FinalTest",
