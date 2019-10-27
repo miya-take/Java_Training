@@ -1,7 +1,21 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+
+class Hero {
+  private String name;
+
+  public Hero(String name) {
+    this.name = name;
+  }
+  public String getName() {
+    return this.name;
+  }
+}
 
 public class Collection{
   public static void main(String[] args) {
@@ -45,12 +59,36 @@ public class Collection{
     alphabets.add("a"); // 無視される
     System.out.println("alphabetsは" + alphabets.size() + "種類");
 
+    System.out.println("Map");
+    // Mapは「ペアデータの集まり」であるため、Collectionインターフェイスとは継承関係にない
+    Map<String, Integer> prefs = new HashMap<String, Integer>();
+    prefs.put("tokyo", 1261);
+    prefs.put("kyoto", 255);
+    prefs.put("kumamoto", 182);
 
+    // 格納された値を一つずつ取り出す
+    // まず県名一覧を取得する
+    for (String key : prefs.keySet()) {
+      int value = prefs.get(key);
+    }
 
+    System.out.println("コレクションのネスト");
 
+    List<Hero> heroList = new ArrayList<Hero>();
+    Hero saito = new Hero("Saito");
+    Hero suzuki = new Hero("Suzuki");
+    heroList.add(saito);
+    heroList.add(suzuki);
+    for (Hero h : heroList){
+      System.out.println(h.getName());
+    }
 
-
-
+    Map<Hero, Integer> heroDefeatNumber = new HashMap<Hero, Integer>();
+    heroDefeatNumber.put(saito, 3);
+    heroDefeatNumber.put(suzuki, 7);
+    for(Hero i : heroDefeatNumber.keySet()){
+      int number = heroDefeatNumber.get(i);
+      System.out.println(i.getName() + "が倒した敵の人数は" + number + "人です");
+    }
   }
-
 }

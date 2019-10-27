@@ -81,3 +81,14 @@ public static void printList(List<String> list){
 - TreeSet
   - 自然順序付で整列
   - それぞれのクラスに固有の順序。Stringクラスでは辞書順になるように定義されている
+
+### Map
+- Mapは「ペアデータの集まり」であるため、Collectionインターフェイスとは継承関係にない
+- 二つの情報を**key** と **value**のペアとして格納するデータ構造
+- `java.util.Map`インターフェイスと`java.util.HashMap`クラスに代表される実装を用いることで、活用できる
+- `Map<String, Integer>`String型のkeyと、Integer型の値value
+- マップでは値の重複は許されるが、**key**の重複は許されない。同じkeyをput()すると値が上書きされる
+
+
+### コレクションの応用
+- コレクションのネスト
