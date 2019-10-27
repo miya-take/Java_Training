@@ -7,3 +7,77 @@
 - 可変(mutable)
   - `StringBuffer` や `StringBuilder`は可変んあクラスとして設計されている
   - `append()`メソッドの呼び出しのたびにnewを行わない。バッファを拡大しつつあたらな文字列を追記していく
+
+
+## 03_Collection
+### データ構造(datastructure)
+- データをどのようにまとめて扱うかを示したもの
+- list
+  - 配列のように、順序づけて格納するデータ構造nこと
+### コレクションフレームワーク collectioin framework
+- 様々なデータ構造に対応した、「データをまとめて格納するために入れ物クラス」がAPIとして準備されている。
+- `java.util`パッケージに属し、collection-frameworkと総称されている
+- 
+- 単独の値を保存
+  - `ArrayList``LinkedList`
+    - 重複許可、順序保証(list)
+  - `HashSet``LinkedHashSet``TreeSet`
+    - 重複不可、順序非保証(Set)
+    - 集合(set)というデータ構造を実現している
+- ペアの値を保存(Map)
+  - `HashMap``LinkedHashMap``TreeMap`
+
+### コレクションクラスにはできないこと
+- **インスタンスでないものは格納できない。基本データ型は格納ができない**
+- プリミティブ型はラップすることで使用できるint->Integer
+### リストの中身を一つずつ取り出す方法
+- for
+- 拡張for
+- イテレータ
+  - イテレータとは、箱を順番にやす矢印
+  - `java.tuil.Iterator<~>`型のインスタントして扱う
+    - `ArrayList<String>`の場合には、イテレータとして`Iterator<String>`を利用する
+    - Iteratorを使用するサインは、`new`演算子は使用しない。リスト変数自体の`iterator()`メソッドを呼び出すことでリストの先頭をさしたイテレータのインスタンを得ることができる
+  - イテレータのメソッドを呼び出すと、**そのリストよりも先頭（最初の箱よりももっと前）を指定した状態の矢印を取得している**
+  - イテレータのインスタンスに対する操作
+      - `hasNext()`
+        - 次の要素をさせるか調査する
+      - `next()`
+        - 次の要素を指定し、その内容をさす
+#### LinkedList
+- ArrayListっと似たような動作をする
+- ただしArrayListとは **クラスの内部実装に違いがある**
+- LinkedListは**連結リスト**という構造を応用して作られteiru
+- LinkedListが得意な操作(ArrayListが苦手な操作)
+  - 要素の挿入・削除`add()``remove()`
+- LinkedListが苦手な操作(ArrayListが得意な操作)
+  - 指定位置の要素の取得`get()`
+
+### コレクションのインスタンスは極力曖昧な型で取り扱うのが通なやり方
+- ArrayListとLinkedListは共に、`java.util.List`インターフェースを実装している
+```
+java.util.List
+　└ ArrayList
+　└ LinkedList
+```
+- ざっくりListとして扱う方がメリットが大きい
+  - **引数、戻り値、ローカル変数には、極力曖昧な型（インターフェイス型）を利用できないかを検討して、積極的に利用する**
+- 例えば下のメソッドの役割は「リストの中身を取り出して一つずつ表示すること」
+  - なのでリストの内部構造が配列であるか連結リストであるかあは関係ない。
+```
+public static void printList(List<String> list){
+  for (String a : list){
+    System.out.println(a);
+  }
+}
+```
+### Set集合
+- 重複した値は無視される
+- set()やget()がない。要素同士に順序がないため。添字は使えない
+- 一つずつ取り出す際の順序は不明
+#### Setの実装バリエーション
+- LinkedHashSet
+  - 値を格納した順序で整列j
+- TreeSet
+  - 自然順序付で整列
+  - それぞれのクラスに固有の順序。Stringクラスでは辞書順になるように定義されている
