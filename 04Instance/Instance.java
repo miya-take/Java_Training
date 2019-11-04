@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class Instance {
   public static void main(String[] args){
@@ -69,8 +70,91 @@ public class Instance {
     // 本来ならば、削除されて0になっていないといけない
     // だが、remove()は引数rにあるインスタンを渡して、「これと同じものを削除する」よう事項
     // JVMは、ArrayListから同じものを探すためにequals()による等価判定を行う。
-    // その際にh、equals()をオーバーライドしていない、等価判定に不具合があるクラスをコレクションに格納すると、要素の検索や削除が正しく行われないj
+    // その際にh、equals()をオーバーライドlー｀ない、等価判定に不具合があるクラスをコレクションに格納すると、要素の検索や削除が正しく行われないj
     System.out.println("The number of member is " + memberList.size());
+    System.out.println("================================");
+    System.out.println("cloneメソッド");
+    System.out.println("================================");
+
+    class Book implements Cloneable, Comparable<Book>{
+      private String title;
+      private Date publishDate;
+      private String comment;
+      Book(String title, Date, publishDate, String comment){
+        this.title = title;
+        this.publishDate = publishDate;
+        this.comment = comment;
+      }
+      public setTitle(String title){
+        this.title = title;
+      }
+      public getTitle(){
+        return this.title;
+      }
+      public setPublishDate(String publishDate){
+        this.publishDate = publishDate;
+      }
+      public getPublishDate(){
+        return this.publishDate;
+      }
+      public setComment(String comment){
+        this.comment = comment;
+      }
+      public getComment(){
+        return this.comment;
+      }
+      @Override
+      public boolean equals(Object obj) {
+        if(obj == Book) {
+          return true;
+        }
+        if(obj ==  null) {
+          return false;
+        }
+        if(!(obj instanceof Book)){
+          return false;
+        } 
+        Book objBook = (Book)obj;
+        if(objBook.title.equals(this.book.title) && objBook.publishDate.equals(this.publishDate)){
+          return true;
+        }
+        return false;
+      }
+
+      @Override
+      public int hashCode() {
+        int result = 37;
+        result = result * 31 + this.title.hashCode();
+        result = result * 31  + this.publishDate.hashCode();
+        return result;
+      }
+
+      @Override
+      public int compareTo(Book obj){
+        return this.publishDate.compareTo(obj.publishDate);
+      // 自分の最初書いた回答は下のもの。DateクラスがcomparaToを実装しているから、それを利用する?
+      //   if(this.publishDate < obj.publishDate){
+      //     return -1
+      //   } 
+      //   if(this.publishDate > obj.publishDate){
+      //     return 1;
+      //   }
+      //   return 0;
+      }
+
+      @Override
+      public Book clone(){
+        Book bookCloned = new Book();
+        bookCloned.title = this.title.clone();
+        bookCloned.comment = this.comment.clone();
+        bookCloned.publishDate = (Date) this.publishDate.clone();
+        return bookCloned;
+      }
+
+    }
+
+ 
+
 
     
   }
